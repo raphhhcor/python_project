@@ -7,9 +7,10 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
 scipy = ">=1.11,<1.14"
 pybacktestchain = "^0.2.1"
+python = ">=3.10,<3.13"
+numba = "^0.60.0"
 
 [tool.poetry.dev-dependencies]
 
