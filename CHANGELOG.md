@@ -1,7 +1,4 @@
-# Changelog
+# CHANGELOG
 
-<!--next-version-placeholder-->
 
-## v0.0.0 (01/01/2025)
-
-- First release of `python_project`!
+## v0.0.0 (2025-01-10)
