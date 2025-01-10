@@ -22,7 +22,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.semantic_release]
-"version_source": "commit"
+version_source =  "commit"
 version_variable = "pyproject.toml:version" 
 version_toml = [ 
 "pyproject.toml:tool.poetry.version", 
