@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.0.3 (2025-01-10)
+
+### Bug Fixes
+
+- Version control testing3
+  ([`62f780f`](https://github.com/raphhhcor/python_project/commit/62f780f3cfe1ca2cce2965f5e4110e52c56e5422))
+
+
 ## v0.0.2 (2025-01-10)
 
 ### Bug Fixes
