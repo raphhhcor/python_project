@@ -1,6 +1,15 @@
 # CHANGELOG
 
 
+## v0.1.0 (2025-01-14)
+
+### Features
+
+- Added a new feature. Dev of an interface with streamlit that displays all the parameters that the
+  user can choose for the backtest.
+  ([`38df507`](https://github.com/raphhhcor/python_project/commit/38df507b9c2c1d9ef7ef82f57f018d4a907b3292))
+
+
 ## v0.0.6 (2025-01-10)
 
 ### Bug Fixes
