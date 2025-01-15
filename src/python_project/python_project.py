@@ -96,7 +96,14 @@ if submitted:
 
     # Expanders for results
     with st.expander("Processed Results (Key Metrics and Analysis)", expanded=True):
-        st.write("soon")
+        summary = df_portfolio_mvmt.groupby('Ticker').agg(
+            Total_Buy=('Quantity', lambda x: sum(x[df_portfolio_mvmt.loc[x.index, 'Action'] == 'BUY'])),
+            Total_Sell=('Quantity', lambda x: sum(x[df_portfolio_mvmt.loc[x.index, 'Action'] == 'SELL'])),
+            Net_Quantity=('Quantity', lambda x: sum(x[df_portfolio_mvmt.loc[x.index, 'Action'] == 'BUY']) - sum(x[df_portfolio_mvmt.loc[x.index, 'Action'] == 'SELL'])),
+            Total_Investment=('Price', lambda x: sum(x[df_portfolio_mvmt.loc[x.index, 'Action'] == 'BUY'] * df_portfolio_mvmt.loc[x.index, 'Quantity'][df_portfolio_mvmt.loc[x.index, 'Action'] == 'BUY']))
+        ).reset_index()
+        st.title("Summary of Transactions by Ticker")
+        st.dataframe(summary)
 
 
     ## Display the Blockchain results
