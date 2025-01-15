@@ -31,7 +31,7 @@ class CustomFirstTwoMoments(FirstTwoMoments):
             n = len(mu)
 
             # Objective function
-            obj = lambda x: -x.dot(mu) + self.gamma / 2 * x.dot(Sigma).dot(x)
+            obj = lambda x: -x.dot(mu) + self.gamma / 2 * x.dot(Sigma).dot(x)  # noqa: E731
 
             # Initial guess: equal weights
             x0 = np.ones(n) / n
@@ -76,3 +76,10 @@ class CustomBacktest(Backtest):
         super().__init__(*args, **kwargs)  # Initialise la classe mère
         # Si backtest_name est None, utilise la valeur définie par la classe mère
         self.backtest_name = backtest_name if backtest_name is not None else self.backtest_name
+
+
+def split_text_by_lines(text):
+    # Split the text into lines
+    lines = text.splitlines()
+    # Remove empty lines and strip whitespace
+    return [line.strip() for line in lines if line.strip()]

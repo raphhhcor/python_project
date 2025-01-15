@@ -102,8 +102,16 @@ if submitted:
     ## Display the Blockchain results
     with st.expander("Blockchain Monitoring (Raw Data)", expanded=False):
         st.subheader("Blockchain Data")
+        if block_chain.is_valid():
+            st.write("The blockchain is valid.")
+        else:
+            st.write("The blockchain is not valid.")
         st.write("Below is the raw blockchain data:")
-        st.write(str(block_chain))
+        for i in utils.split_text_by_lines(str(block_chain)):
+            st.markdown(
+                f"<div style='font-size:12px; font-family:monospace;'>{i}</div>",
+                unsafe_allow_html=True
+            )
         st.write(f"Blockchain Valid: {block_chain.is_valid()}")
 
     with st.expander("Portfolio Movements (Raw Data)", expanded=False):
