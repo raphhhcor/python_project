@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.1.2 (2025-01-15)
+
+### Bug Fixes
+
+- The first expander of the resultswas not displayed.
+  ([`a1deedb`](https://github.com/raphhhcor/python_project/commit/a1deedb69993dddc32e67db4dff1f3d885088624))
+
+
 ## v0.1.1 (2025-01-15)
 
 ### Bug Fixes
