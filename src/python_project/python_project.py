@@ -2,7 +2,7 @@ from pybacktestchain.broker import StopLoss
 from pybacktestchain.blockchain import load_blockchain
 import streamlit as st
 from datetime import datetime
-from utils import CustomBacktest, CustomFirstTwoMoments
+import utils
 
 # Set verbosity for logging
 verbose = False  # Set to True to enable logging, or False to suppress it
@@ -67,7 +67,46 @@ with st.container(border=True):
     # Button to submit inputs
     submitted = st.button(label="Run Backtest")
 
+# Section 2: Results
+if submitted:
+    st.header("Backtest Results")
+    
+    # Create a CustomFirstTwoMoments instance with the gamma parameter
+    custom_moments = utils.CustomFirstTwoMoments(gamma=gamma)
+    
+    # Create a CustomBacktest instance
+    backtest = utils.CustomBacktest(
+        initial_date=datetime.combine(initial_date, datetime.min.time()),
+        final_date=datetime.combine(final_date, datetime.min.time()),
+        information_class=utils.CustomFirstTwoMoments,
+        risk_model=StopLoss,
+        name_blockchain='backtest',
+        verbose=verbose,
+        backtest_name=file_name,
+    )
+    
+    # Run the backtest
+    backtest.run_backtest()
+    block_chain = load_blockchain('backtest')
+    # Check if the blockchain is valid
+    df_portfolio_mvmt = df = backtest.broker.get_transaction_log()
 
+    # Display results (placeholder example)
+    st.write(f"Backtest '{backtest.backtest_name}' completed successfully!")
+
+    # Expanders for results
+    with st.expander("Processed Results (Key Metrics and Analysis)", expanded=True):
+        pass
+
+
+    ## Display the Blockchain results
+    with st.expander("Blockchain Monitoring (Raw Data)", expanded=False):
+        pass
+
+    with st.expander("Portfolio Movements (Raw Data)", expanded=False):
+        st.subheader("Portfolio Transactions")
+        # Placeholder for raw portfolio movement data (replace with actual data)
+        st.dataframe(df_portfolio_mvmt)
 
 # Footer or additional spacing
 st.write("---")
