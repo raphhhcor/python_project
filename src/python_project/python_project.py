@@ -112,7 +112,7 @@ if submitted:
 
 
         # Garder uniquement la dernière ligne pour chaque date
-        df_portfolio_mvmt = df_portfolio_mvmt.sort_values(by=['Date']).groupby('Date').last().reset_index()
+        df_portfolio_mvmt_cash_graph = df_portfolio_mvmt.sort_values(by=['Date']).groupby('Date').last().reset_index()
 
         # Création du graphique avec points reliés par une ligne
         st.title("Evolution of Cash Over Time")
@@ -120,8 +120,8 @@ if submitted:
 
         # Ajouter les points et les lignes
         fig.add_trace(go.Scatter(
-            x=df_portfolio_mvmt['Date'],
-            y=df_portfolio_mvmt['Cash'],
+            x=df_portfolio_mvmt_cash_graph['Date'],
+            y=df_portfolio_mvmt_cash_graph['Cash'],
             mode='lines+markers',
             name='Cash',
             line=dict(color='blue'),
@@ -138,6 +138,36 @@ if submitted:
         )
         # Afficher le graphique dans Streamlit
         st.plotly_chart(fig)
+
+        # Diagramme circulaire pour les transactions par ticker
+        ticker_counts = df_portfolio_mvmt['Ticker'].value_counts().reset_index()
+        ticker_counts.columns = ['Ticker', 'Count']
+
+        fig_pie = px.pie(
+            ticker_counts,
+            values='Count',
+            names='Ticker',
+            title="Distribution of Transactions by Ticker",
+            hole=0.4
+        )
+        st.plotly_chart(fig_pie)
+
+        # Répartition des transactions BUY et SELL par ticker
+        st.title("BUY and SELL Distribution by Ticker")
+
+        # Calculer les transactions par type (BUY/SELL) et ticker
+        transaction_distribution = df_portfolio_mvmt.groupby(['Ticker', 'Action']).size().reset_index(name='Count')
+
+        fig_bar = px.bar(
+            transaction_distribution,
+            x='Ticker',
+            y='Count',
+            color='Action',
+            barmode='group',
+            title="BUY and SELL Distribution by Ticker",
+            labels={'Count': 'Number of Transactions', 'Ticker': 'Ticker'}
+        )
+        st.plotly_chart(fig_bar)
 
 
     ## Display the Blockchain results
