@@ -1,6 +1,15 @@
 # CHANGELOG
 
 
+## v0.1.1 (2025-01-15)
+
+### Bug Fixes
+
+- Updated the visaualization of the blockchain. The str was displayed too largely. Added a function
+  in utils in order to get the blockchain details in an appropriate format.
+  ([`257f51e`](https://github.com/raphhhcor/python_project/commit/257f51e79d26cf4c9f3588fbb1f5a41130348f5a))
+
+
 ## v0.1.0 (2025-01-14)
 
 ### Features
