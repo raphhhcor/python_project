@@ -96,7 +96,7 @@ if submitted:
 
     # Expanders for results
     with st.expander("Processed Results (Key Metrics and Analysis)", expanded=True):
-        pass
+        st.write("soon")
 
 
     ## Display the Blockchain results
