@@ -1,8 +1,11 @@
 from pybacktestchain.broker import StopLoss
 from pybacktestchain.blockchain import load_blockchain
 import streamlit as st
+import pandas as pd
 from datetime import datetime
 import utils
+import plotly.express as px
+import plotly.graph_objects as go
 
 # Set verbosity for logging
 verbose = False  # Set to True to enable logging, or False to suppress it
@@ -90,6 +93,8 @@ if submitted:
     block_chain = load_blockchain('backtest')
     # Check if the blockchain is valid
     df_portfolio_mvmt = df = backtest.broker.get_transaction_log()
+    # Convertir la colonne Date en format datetime pour le tri et les graphiques
+    df_portfolio_mvmt['Date'] = pd.to_datetime(df_portfolio_mvmt['Date'])
 
     # Display results (placeholder example)
     st.write(f"Backtest '{backtest.backtest_name}' completed successfully!")
@@ -104,6 +109,35 @@ if submitted:
         ).reset_index()
         st.title("Summary of Transactions by Ticker")
         st.dataframe(summary)
+
+
+        # Garder uniquement la dernière ligne pour chaque date
+        df_portfolio_mvmt = df_portfolio_mvmt.sort_values(by=['Date']).groupby('Date').last().reset_index()
+
+        # Création du graphique avec points reliés par une ligne
+        st.title("Evolution of Cash Over Time")
+        fig = go.Figure()
+
+        # Ajouter les points et les lignes
+        fig.add_trace(go.Scatter(
+            x=df_portfolio_mvmt['Date'],
+            y=df_portfolio_mvmt['Cash'],
+            mode='lines+markers',
+            name='Cash',
+            line=dict(color='blue'),
+            marker=dict(size=8)
+        ))
+
+        # Personnalisation du graphique
+        fig.update_layout(
+            title="Evolution of Cash Over Time",
+            xaxis_title="Date",
+            yaxis_title="Cash ($)",
+            template="plotly_white",
+            hovermode="x unified"
+        )
+        # Afficher le graphique dans Streamlit
+        st.plotly_chart(fig)
 
 
     ## Display the Blockchain results
