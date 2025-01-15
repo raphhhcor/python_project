@@ -101,15 +101,47 @@ if submitted:
 
     # Expanders for results
     with st.expander("Processed Results (Key Metrics and Analysis)", expanded=True):
-        summary = df_portfolio_mvmt.groupby('Ticker').agg(
-            Total_Buy=('Quantity', lambda x: sum(x[df_portfolio_mvmt.loc[x.index, 'Action'] == 'BUY'])),
-            Total_Sell=('Quantity', lambda x: sum(x[df_portfolio_mvmt.loc[x.index, 'Action'] == 'SELL'])),
-            Net_Quantity=('Quantity', lambda x: sum(x[df_portfolio_mvmt.loc[x.index, 'Action'] == 'BUY']) - sum(x[df_portfolio_mvmt.loc[x.index, 'Action'] == 'SELL'])),
-            Total_Investment=('Price', lambda x: sum(x[df_portfolio_mvmt.loc[x.index, 'Action'] == 'BUY'] * df_portfolio_mvmt.loc[x.index, 'Quantity'][df_portfolio_mvmt.loc[x.index, 'Action'] == 'BUY']))
-        ).reset_index()
-        st.title("Summary of Transactions by Ticker")
-        st.dataframe(summary)
+        cols = st.columns(2)
+        with cols[0]:
+            summary = df_portfolio_mvmt.groupby('Ticker').agg(
+                Total_Buy=('Quantity', lambda x: sum(x[df_portfolio_mvmt.loc[x.index, 'Action'] == 'BUY'])),
+                Total_Sell=('Quantity', lambda x: sum(x[df_portfolio_mvmt.loc[x.index, 'Action'] == 'SELL'])),
+                Net_Quantity=('Quantity', lambda x: sum(x[df_portfolio_mvmt.loc[x.index, 'Action'] == 'BUY']) - sum(x[df_portfolio_mvmt.loc[x.index, 'Action'] == 'SELL'])),
+                Total_Investment=('Price', lambda x: sum(x[df_portfolio_mvmt.loc[x.index, 'Action'] == 'BUY'] * df_portfolio_mvmt.loc[x.index, 'Quantity'][df_portfolio_mvmt.loc[x.index, 'Action'] == 'BUY']))
+            ).reset_index()
+            st.title("Summary of Transactions by Ticker")
+            st.dataframe(summary)
 
+        with cols[1]:
+            # Diagramme circulaire pour les transactions par ticker
+            ticker_counts = df_portfolio_mvmt['Ticker'].value_counts().reset_index().copy()
+            ticker_counts.columns = ['Ticker', 'Count']
+
+            fig_pie = px.pie(
+                ticker_counts,
+                values='Count',
+                names='Ticker',
+                title="Distribution of Transactions by Ticker",
+                hole=0.4
+            )
+            st.plotly_chart(fig_pie)
+
+        # Répartition des transactions BUY et SELL par ticker
+        st.title("BUY and SELL Distribution by Ticker")
+
+        # Calculer les transactions par type (BUY/SELL) et ticker
+        transaction_distribution = df_portfolio_mvmt.groupby(['Ticker', 'Action']).size().reset_index(name='Count').copy()
+
+        fig_bar = px.bar(
+            transaction_distribution,
+            x='Ticker',
+            y='Count',
+            color='Action',
+            barmode='group',
+            title="BUY and SELL Distribution by Ticker",
+            labels={'Count': 'Number of Transactions', 'Ticker': 'Ticker'}
+        )
+        st.plotly_chart(fig_bar)
 
         # Garder uniquement la dernière ligne pour chaque date
         df_portfolio_mvmt_cash_graph = df_portfolio_mvmt.sort_values(by=['Date']).groupby('Date').last().reset_index()
@@ -139,36 +171,6 @@ if submitted:
         # Afficher le graphique dans Streamlit
         st.plotly_chart(fig)
 
-        # Diagramme circulaire pour les transactions par ticker
-        ticker_counts = df_portfolio_mvmt['Ticker'].value_counts().reset_index().copy()
-        ticker_counts.columns = ['Ticker', 'Count']
-
-        fig_pie = px.pie(
-            ticker_counts,
-            values='Count',
-            names='Ticker',
-            title="Distribution of Transactions by Ticker",
-            hole=0.4
-        )
-        st.plotly_chart(fig_pie)
-
-        # Répartition des transactions BUY et SELL par ticker
-        st.title("BUY and SELL Distribution by Ticker")
-
-        # Calculer les transactions par type (BUY/SELL) et ticker
-        transaction_distribution = df_portfolio_mvmt.groupby(['Ticker', 'Action']).size().reset_index(name='Count').copy()
-
-        fig_bar = px.bar(
-            transaction_distribution,
-            x='Ticker',
-            y='Count',
-            color='Action',
-            barmode='group',
-            title="BUY and SELL Distribution by Ticker",
-            labels={'Count': 'Number of Transactions', 'Ticker': 'Ticker'}
-        )
-        st.plotly_chart(fig_bar)
-
         # Ajouter une colonne pour les mois et les trimestres
         df_portfolio_mvmt_period = df_portfolio_mvmt.copy()
         
@@ -179,6 +181,7 @@ if submitted:
         # Création des onglets pour "Month" et "Quarter"
         st.title("Aggregate Data by Period")
         tab1, tab2 = st.tabs(["Month", "Quarter"])
+
 
         # Onglet pour les données mensuelles
         with tab1:
