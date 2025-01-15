@@ -140,7 +140,7 @@ if submitted:
         st.plotly_chart(fig)
 
         # Diagramme circulaire pour les transactions par ticker
-        ticker_counts = df_portfolio_mvmt['Ticker'].value_counts().reset_index()
+        ticker_counts = df_portfolio_mvmt['Ticker'].value_counts().reset_index().copy()
         ticker_counts.columns = ['Ticker', 'Count']
 
         fig_pie = px.pie(
@@ -156,7 +156,7 @@ if submitted:
         st.title("BUY and SELL Distribution by Ticker")
 
         # Calculer les transactions par type (BUY/SELL) et ticker
-        transaction_distribution = df_portfolio_mvmt.groupby(['Ticker', 'Action']).size().reset_index(name='Count')
+        transaction_distribution = df_portfolio_mvmt.groupby(['Ticker', 'Action']).size().reset_index(name='Count').copy()
 
         fig_bar = px.bar(
             transaction_distribution,
@@ -168,6 +168,69 @@ if submitted:
             labels={'Count': 'Number of Transactions', 'Ticker': 'Ticker'}
         )
         st.plotly_chart(fig_bar)
+
+        # Ajouter une colonne pour les mois et les trimestres
+        df_portfolio_mvmt_period = df_portfolio_mvmt.copy()
+        
+        # Ajouter une colonne pour les mois et les trimestres
+        df_portfolio_mvmt_period['Month'] = df_portfolio_mvmt_period['Date'].dt.to_period('M').astype(str)  # Convertir en string
+        df_portfolio_mvmt_period['Quarter'] = df_portfolio_mvmt_period['Date'].dt.to_period('Q').astype(str)  # Convertir en string
+
+        # Création des onglets pour "Month" et "Quarter"
+        st.title("Aggregate Data by Period")
+        tab1, tab2 = st.tabs(["Month", "Quarter"])
+
+        # Onglet pour les données mensuelles
+        with tab1:
+            cols = st.columns((2,3))
+            with cols[0]:
+                st.subheader("Aggregate Data by Month")
+                grouped_month = df_portfolio_mvmt_period.groupby('Month').agg(
+                    Total_Investment=('Price', lambda x: sum(x[df_portfolio_mvmt_period.loc[x.index, 'Action'] == 'BUY'] * df_portfolio_mvmt_period.loc[x.index, 'Quantity'][df_portfolio_mvmt_period.loc[x.index, 'Action'] == 'BUY'])),
+                    Total_Quantity_Buy=('Quantity', lambda x: sum(x[df_portfolio_mvmt_period.loc[x.index, 'Action'] == 'BUY'])),
+                    Total_Quantity_Sell=('Quantity', lambda x: sum(x[df_portfolio_mvmt_period.loc[x.index, 'Action'] == 'SELL']))
+                ).reset_index()
+
+                # Afficher les données agrégées
+                st.dataframe(grouped_month)
+            with cols[1]:
+                # Créer un graphique
+                fig_month = px.bar(
+                    grouped_month,
+                    x='Month',
+                    y=['Total_Quantity_Buy', 'Total_Quantity_Sell'],
+                    title="Transactions by Month",
+                    labels={'value': 'Quantity', 'variable': 'Transaction Type'},
+                    barmode='stack'
+                )
+                st.plotly_chart(fig_month)
+
+        # Onglet pour les données trimestrielles
+        with tab2:
+            cols = st.columns((2,3))
+            with cols[0]:
+                st.subheader("Aggregate Data by Quarter")
+                grouped_quarter = df_portfolio_mvmt_period.groupby('Quarter').agg(
+                    Total_Investment=('Price', lambda x: sum(x[df_portfolio_mvmt_period.loc[x.index, 'Action'] == 'BUY'] * df_portfolio_mvmt_period.loc[x.index, 'Quantity'][df_portfolio_mvmt_period.loc[x.index, 'Action'] == 'BUY'])),
+                    Total_Quantity_Buy=('Quantity', lambda x: sum(x[df_portfolio_mvmt_period.loc[x.index, 'Action'] == 'BUY'])),
+                    Total_Quantity_Sell=('Quantity', lambda x: sum(x[df_portfolio_mvmt_period.loc[x.index, 'Action'] == 'SELL']))
+                ).reset_index()
+
+                # Afficher les données agrégées
+                st.dataframe(grouped_quarter)
+
+            with cols[1]:
+                # Créer un graphique
+                fig_quarter = px.bar(
+                    grouped_quarter,
+                    x='Quarter',
+                    y=['Total_Quantity_Buy', 'Total_Quantity_Sell'],
+                    title="Transactions by Quarter",
+                    labels={'value': 'Quantity', 'variable': 'Transaction Type'},
+                    barmode='stack'
+                )
+                st.plotly_chart(fig_quarter)
+
 
 
     ## Display the Blockchain results
