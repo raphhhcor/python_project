@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.1.3 (2025-01-15)
+
+### Bug Fixes
+
+- Removed the unused files. Added a line chart for the cash. Added plotly.
+  ([`c2bb6c1`](https://github.com/raphhhcor/python_project/commit/c2bb6c151fcaa570948667d976d9fdb9279141f2))
+
+
 ## v0.1.2 (2025-01-15)
 
 ### Bug Fixes
