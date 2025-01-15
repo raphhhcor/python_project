@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.2.0 (2025-01-15)
+
+### Features
+
+- Added a detailed view of the results in the UI.
+  ([`cf4244f`](https://github.com/raphhhcor/python_project/commit/cf4244fcead4edfd7fbc2df205fef3635cb0f71a))
+
+
 ## v0.1.3 (2025-01-15)
 
 ### Bug Fixes
