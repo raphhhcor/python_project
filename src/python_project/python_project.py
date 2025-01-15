@@ -101,7 +101,10 @@ if submitted:
 
     ## Display the Blockchain results
     with st.expander("Blockchain Monitoring (Raw Data)", expanded=False):
-        pass
+        st.subheader("Blockchain Data")
+        st.write("Below is the raw blockchain data:")
+        st.write(str(block_chain))
+        st.write(f"Blockchain Valid: {block_chain.is_valid()}")
 
     with st.expander("Portfolio Movements (Raw Data)", expanded=False):
         st.subheader("Portfolio Transactions")
