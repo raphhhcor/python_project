@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.2.2 (2025-01-16)
+
+### Bug Fixes
+
+- Fixed semantic release. fixed the customs class for the custom parameters. Removed a test file.
+  ([`80b3627`](https://github.com/raphhhcor/python_project/commit/80b362796f4d15275dc43e1f55b375e759110f87))
+
+
 ## v0.2.1 (2025-01-16)
 
 ### Bug Fixes

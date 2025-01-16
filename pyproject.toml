@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "203_python_project_rc"
-version = "0.2.1"
+version = "0.2.2"
 description = "Add feature to pybacktestchain"
 authors = ["Raphael Corchia"]
 license = "MIT"
