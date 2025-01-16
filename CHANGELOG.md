@@ -1,6 +1,24 @@
 # CHANGELOG
 
 
+## v0.2.1 (2025-01-16)
+
+### Bug Fixes
+
+- Updated the name of the project to have a unique name for the package.
+  ([`7ac1828`](https://github.com/raphhhcor/python_project/commit/7ac1828b8f8b5bbe100783e73ba0302580beff55))
+
+### Code Style
+
+- Changed the organization of the graphs and table in the UI to improve the visibility.
+  ([`a016e4b`](https://github.com/raphhhcor/python_project/commit/a016e4bf42afde5ee82666bcfca88ec7935ec2a4))
+
+### Refactoring
+
+- Added comments. Formatted documents under pep8. Factorized the code.
+  ([`3b18670`](https://github.com/raphhhcor/python_project/commit/3b18670a2505c2aa5ee8c67cee4a7bbc4af3ac30))
+
+
 ## v0.2.0 (2025-01-15)
 
 ### Features
