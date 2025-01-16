@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.2.6 (2025-01-16)
+
+### Bug Fixes
+
+- Put all the classes in the same file in order to facilitate the imports.
+  ([`3a87bab`](https://github.com/raphhhcor/python_project/commit/3a87bab390841ce7861c5c13623c0569e941189c))
+
+
 ## v0.2.5 (2025-01-16)
 
 ### Bug Fixes
