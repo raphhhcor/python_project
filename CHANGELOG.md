@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.2.3 (2025-01-16)
+
+### Bug Fixes
+
+- Package name not valid.
+  ([`2ec21e7`](https://github.com/raphhhcor/python_project/commit/2ec21e78f9e03ba6ca7f06f751c19dbfc2799d5d))
+
+
 ## v0.2.2 (2025-01-16)
 
 ### Bug Fixes
