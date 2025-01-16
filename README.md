@@ -1,11 +1,27 @@
 # python_project
 
-Add an user interface for the visualization of the results of pybacktestchain
+Add an user interface for the visualization of the results of pybacktestchain.
+
 
 ## Installation
 
 ```bash
 $ pip install python_project_raphael_corchia
+```
+
+## Usage
+
+```python
+
+from python_project_raphael_corchia.python_project import main
+
+main()
+```
+
+In a terminal in the same folder as your python file, do:
+
+```bash
+$ streamlit run your_python_file_name.py
 ```
 
 ## Contributing
