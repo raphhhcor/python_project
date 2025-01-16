@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.2.4 (2025-01-16)
+
+### Bug Fixes
+
+- Fixed the python package name in the init file.
+  ([`a926d2d`](https://github.com/raphhhcor/python_project/commit/a926d2db97bdf8231df171ab232799138746c318))
+
+
 ## v0.2.3 (2025-01-16)
 
 ### Bug Fixes
