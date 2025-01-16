@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from datetime import datetime
 
 import numpy as np
-from pybacktestchain.broker import Backtest
+from pybacktestchain.broker import Backtest, Broker
 from pybacktestchain.data_module import FirstTwoMoments
 from scipy.optimize import minimize
 
@@ -62,8 +62,10 @@ class CustomFirstTwoMoments(FirstTwoMoments):
 
 ## Define a custom class of the backtest one in order to be able to modify some parameters ##
 class CustomBacktest(Backtest):
-    def __init__(self, *args, backtest_name: str = None, **kwargs):
-        super().__init__(*args, **kwargs)  # Initialise la classe mère
+    def __init__(self, *args, backtest_name: str = None, initial_cash: float = 1_000_000, **kwargs):
+        self.initial_cash = initial_cash
+        self.broker = Broker(cash=self.initial_cash, verbose=self.verbose)
+        super().__init__(*args, **kwargs)
         # if backtest_name is None, use teh default value of the Backtest class
         self.backtest_name = (
             backtest_name if backtest_name is not None else self.backtest_name
