@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
-import utils
+from . import utils
 from pybacktestchain.blockchain import load_blockchain
 from pybacktestchain.broker import EndOfMonth, StopLoss
 
