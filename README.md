@@ -1,11 +1,11 @@
 # python_project
 
-Add feature to pybacktestchain
+Add an user interface for teh visualization of the results of pybacktestchain
 
 ## Installation
 
 ```bash
-$ pip install python_project
+$ pip install 203_python_project_rc
 ```
 
 ## Usage
@@ -18,8 +18,8 @@ Interested in contributing? Check out the contributing guidelines. Please note t
 
 ## License
 
-`python_project` was created by Raphael Corchia. It is licensed under the terms of the MIT license.
+`203_python_project_rc` was created by Raphael Corchia. It is licensed under the terms of the MIT license.
 
 ## Credits
 
-`python_project` was created with [`cookiecutter`](https://cookiecutter.readthedocs.io/en/latest/) and the `py-pkgs-cookiecutter` [template](https://github.com/py-pkgs/py-pkgs-cookiecutter).
+`203_python_project_rc` was created with [`cookiecutter`](https://cookiecutter.readthedocs.io/en/latest/) and the `py-pkgs-cookiecutter` [template](https://github.com/py-pkgs/py-pkgs-cookiecutter).
