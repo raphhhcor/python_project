@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.2.7 (2025-01-16)
+
+### Bug Fixes
+
+- Changed the readme to add the Usage part.
+  ([`eacecad`](https://github.com/raphhhcor/python_project/commit/eacecadd06aa72e76ca6b0729002eab711c664ca))
+
+
 ## v0.2.6 (2025-01-16)
 
 ### Bug Fixes
