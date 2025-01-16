@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.2.5 (2025-01-16)
+
+### Bug Fixes
+
+- Change the way to import utils.
+  ([`1e2fd80`](https://github.com/raphhhcor/python_project/commit/1e2fd803b07eb5ebe839821ace32e2d4c35ffa94))
+
+
 ## v0.2.4 (2025-01-16)
 
 ### Bug Fixes
